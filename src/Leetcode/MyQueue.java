@@ -30,7 +30,7 @@ class MyQueue {
         while(!fs.isEmpty()) {
             rs.push(fs.pop());
         }
-        rs.peek();
+        return rs.peek();
     }
 
     // Return whether the queue is empty.

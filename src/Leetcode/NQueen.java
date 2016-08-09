@@ -5,12 +5,7 @@ package Leetcode;
  */
 public class NQueen {
 
-
-
-
-    class mainer {
-        public static void main(String [] args) {
+    public static void main(String [] args) {
             NQueen nq = new NQueen();
-        }
     }
 }
