@@ -1,97 +1,54 @@
 package Leetcode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by vmunnangi on 8/6/16.
  */
 public class NumberOfIslands {
+    static int X_MAX = 0;
+    static int Y_MAX = 0;
 
-    int X_MAX = 0;
-    int Y_MAX = 0;
-    public int numIslands(char[][] grid) {
+    public static void main(String [] args) {
 
-        return -1;
     }
 
-
-    public class Point {
-        int x;
-        int y;
-        boolean visited;
-        boolean isLand;
-    }
-
-    public class Solution {
-        public static void main(String [] args) {
-            NumberOfIslands islands = new NumberOfIslands();
-
+    public static int numOfIslands(char [][] grid) {
+        int X_MAX = grid.length;
+        if(X_MAX == 0) {
+            return 0;
         }
-    }
+        int Y_MAX = grid[0].length;
 
-    ArrayList<Point> findNeighbours(Point p) {
-        Point right = new Point();
-        right.x = p.x +1;
-        right.y = p.y;
+        boolean [][] visited = new boolean[X_MAX][Y_MAX];
+        int ans = 0;
 
-        Point left = new Point();
-        left.x =  p.x -1;
-        left.y = p.y;
-
-        Point bottom = new Point();
-        bottom.x = p.x;
-        bottom.y = p.y +1;
-
-        Point top = new Point();
-        top.x = p.x;
-        top.y = p.y -1;
-
-        ArrayList<Point> ans = new ArrayList<>();
-        ans.add(right);
-        ans.add(left);
-        ans.add(bottom);
-        ans.add(top);
-
+                for(int i = 0;i<grid.length;i++) {
+            for(int j = 0;j<Y_MAX;j++) {
+                if(grid[i][j] == '1' && !visited[i][j]) {
+                    dfs(grid, i,j, visited);
+                    ans += 1;
+                }
+            }
+        }
         return ans;
     }
 
-
-    /**
-     *         if(right.x < X_MAX && right.y < Y_MAX) {
-     ans.add(right);
-     }
-     if(left.x < X_MAX && left.y < Y_MAX) {
-     ans.add(left);
-     }
-     if(bottom.x < X_MAX && bottom.y < Y_MAX) {
-     ans.add(bottom);
-     }
-     if(top.x < X_MAX && top.y < Y_MAX) {
-     ans.add(top);
-     }
-
-     * @param adjacency_matrix
-     * @param p
-     */
-
-    public  int dfs(int islands[][], Point p) {
-        X_MAX = islands.length;
-        Y_MAX = islands[0].length;
-
-        ArrayList<Point> neighbours= findNeighbours(p);
-        boolean isIsland = true;
-        for (int i = 0; i < neighbours.size(); i++) {
-            Point n=neighbours.get(i);
-            if(n ==null) {
-                continue;
-            }
-            if(n.isLand) {
-                dfs(islands,n);
-                n.visited=true;
-                n.isLand = (islands[n.x][n.y] == 1);
-                isIsland = !n.isLand;
-            }
+    public static void dfs(char[][] grid, int i, int j, boolean[][] visited){
+        visited[i][j] = true;
+        if(i+1 < X_MAX && grid[i+1][j] == '1' && !visited[i+1][j]) {
+            dfs(grid, i+1,j,visited);
         }
-        return (isIsland) ? 1 : 0;
+        if(i -1 >= 0 && grid[i-1][j] == '1' && !visited[i-1][j]) {
+            dfs(grid, i-1,j,visited);
+        }
+        if(j -1 >= 0 && grid[i][j-1] == '1' && !visited[i][j-1]) {
+            dfs(grid, i,j-1,visited);
+        }
+        if(j+1 >= 0 && grid[i][j+1] == '1' && !visited[i][j+1]) {
+            dfs(grid, i,j+1,visited);
+        }
     }
+
 }
